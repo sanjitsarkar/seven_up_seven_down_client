@@ -1,19 +1,19 @@
+import { keyframes } from "@emotion/react";
+import styled from "@emotion/styled";
+import {
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePoints } from "../redux/pointsSlice";
-import axios from "../utils/axios";
-import {
-  Button,
-  Typography,
-  Grid,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-} from "@mui/material";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
 import { fetchUser } from "../redux/userSlice";
+import axios from "../utils/axios";
 
 const rollAnimation = keyframes`
   0% { transform: rotate(0); }
@@ -87,45 +87,59 @@ const Game = () => {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <Typography variant="h4">7 UP 7 DOWN Game</Typography>
+    <div style={{ padding: 20, display:"flex", alignItems:"center",height:"100vh", flexDirection:"column" }}>
+      <Typography variant="h4" marginTop={15}>7 UP 7 DOWN Game</Typography>
       <Typography variant="h6">Points: {points || 5000}</Typography>
       <Grid
         container
         spacing={2}
         style={{ marginTop: 20, color: "white !important" }}
       >
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel>Bet Amount</InputLabel>
-            <Select value={bet} onChange={handleBetChange}>
+         <div style={{ padding: 20, display:"flex",width:"100%",gap:"10px", justifyContent:"center", alignItems:"center " }}>
+          <FormControl >
+            <InputLabel id="demo-simple-select-helper-label">
+              Bet Amount
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={bet}
+              label="Bet Amount"
+       
+              onChange={handleBetChange}
+            >
               <MenuItem value={100}>100</MenuItem>
               <MenuItem value={200}>200</MenuItem>
               <MenuItem value={500}>500</MenuItem>
             </Select>
           </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel>Choice</InputLabel>
-            <Select value={choice} onChange={handleChoiceChange}>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">Choice</InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={choice}
+              label="Choice"
+              onChange={handleChoiceChange}
+            >
               <MenuItem value={"7down"}>7 Down</MenuItem>
               <MenuItem value={"7up"}>7 Up</MenuItem>
               <MenuItem value={"7"}>Lucky 7</MenuItem>
             </Select>
           </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={4}>
+          <Grid >
           <Button
             variant="contained"
             color="primary"
-            fullWidth
+            
             onClick={handleRoll}
             disabled={rolling}
           >
             {rolling ? "Rolling..." : "Roll Dice"}
           </Button>
         </Grid>
+        </div>
+        
       </Grid>
       {dice.length > 0 && (
         <div style={{ marginTop: 20, textAlign: "center" }}>
